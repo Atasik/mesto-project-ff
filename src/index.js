@@ -38,7 +38,6 @@ profileEditButton.addEventListener('click', () => {
 });
 
 popupTypeEditCloseButton.addEventListener('click', () => {
-    setEditProfileInput();
     closeModal(popupTypeEdit);
 });
 
@@ -63,6 +62,7 @@ const handleProfileEditFormSubmit = (evt) => {
     const description = document.querySelector(".profile__description");
     name.textContent = nameInput.value;
     description.textContent = jobInput.value;
+    closeModal(popupTypeEdit);
 };
 
 const handleImageClick = (name, link) => {
@@ -76,6 +76,8 @@ const handleNewPlaceFormSubmit = (evt) => {
     evt.preventDefault();
     console.log(linkInput.value);
     placesList.prepend(createCard(placeNameInput.value, linkInput.value, deleteCard, likeCard, handleImageClick));
+    closeModal(popupTypeNewCard);
+    newPlaceForm.reset();
 };
 
 
