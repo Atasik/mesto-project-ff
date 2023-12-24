@@ -1,5 +1,4 @@
 import "./pages/index.css";
-import "./images/avatar.jpg";
 import { createCard, deleteCard, likeCard } from "./scripts/card.js";
 import { openModal, closeModal, handleOverlayClick } from "./scripts/modal.js";
 import { enableValidation, clearValidation } from "./scripts/validation.js";
