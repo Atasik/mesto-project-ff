@@ -79,6 +79,7 @@ const handleProfileImageEditFormSubmit = (evt) => {
     })
     .catch((err) => console.log(err))
     .finally(() => {
+      editProfileAvatarForm.reset();
       popupBtnProfileAvatar.textContent = 'Сохранить';
       closeModal(popupTypeEditImage);
   });
