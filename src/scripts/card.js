@@ -1,7 +1,7 @@
-import { cardTemplate } from "../index.js"
 import { createLike, removeLike, removeCard } from "./api.js"
+import { cardTemplate } from "./constants.js";
 
-export const createCard = (item, userId, deleteFunction, likeFunction, openFunction) => {
+export const createCard = (item, userId, functions) => {
     const card = cardTemplate.querySelector('.card').cloneNode(true);
     const deleteButton = card.querySelector('.card__delete-button');
     const likeButton = card.querySelector('.card__like-button')
@@ -13,17 +13,17 @@ export const createCard = (item, userId, deleteFunction, likeFunction, openFunct
     likesCounter.textContent = item.likes.length;
     renderLike(likeButton, userId, item.likes);
     likeButton.addEventListener('click', () => {
-        likeFunction(likeButton, likesCounter, item._id);
+        functions.likeFunction(likeButton, likesCounter, item._id);
     });
     if (userId == item.owner._id) {
         deleteButton.addEventListener('click', () => {
-            deleteFunction(card, item._id);
+            functions.deleteFunction(card, item._id);
         });
     } else {
         deleteButton.remove();
     }
     cardImage.addEventListener('click', () => {
-        openFunction(item.name, item.link)
+        functions.openFunction(item.name, item.link)
     });
     return card;
 };
@@ -33,24 +33,24 @@ export const deleteCard = (card, id) => {
         .then(() => {
             card.remove();
         })
-        .catch(err => console.log(err))
+        .catch(console.error)
 };
 
 export const likeCard = (button, likesCounter, id) => {
     if (button.classList.contains('card__like-button_is-active')) {
-        button.classList.remove('card__like-button_is-active');
         removeLike(id)
             .then((res) => {
                 likesCounter.textContent = res.likes.length;
+                button.classList.remove('card__like-button_is-active');
             })
-            .catch((err) => console.log(err));
+            .catch(console.error);
     } else {
-        button.classList.add('card__like-button_is-active');
         createLike(id)
             .then((res) => {
                 likesCounter.textContent = res.likes.length;
+                button.classList.add('card__like-button_is-active');
             })
-            .catch((err) => console.log(err));
+            .catch(console.error);
     }
 };
 

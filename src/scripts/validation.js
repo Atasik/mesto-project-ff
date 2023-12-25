@@ -24,8 +24,10 @@ export const clearValidation = (formElement, validationConfig) => {
 
 const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
     if (hasInvalidInput(inputList)) {
+        buttonElement.disabled = true;
         buttonElement.classList.add(inactiveButtonClass);
     } else {
+        buttonElement.disabled = false;
         buttonElement.classList.remove(inactiveButtonClass);
     }
 };
